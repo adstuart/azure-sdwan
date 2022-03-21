@@ -11,7 +11,7 @@ We will jump straight in to the technical scenarios/options. For preamble and co
 
 ## Summary of design option
 
-This design pattern has existed since 2018 when Azure Virtual WAN first went Generally Available. It utilises automation between the networking vendors SD-WAN controller and API's exposed by the Azure Virtual WAN Hub. These APIs offer programmatic automation for attachment of the SD-WAN to Cloud. Example, a new site comes online in Chicago, it is tagged as "cloud enabled" in the SD-WAN vendors software. IPsec tunnels are automatically built from the Branch CPE to Azure Virtual WAN.
+This design pattern has existed since 2018 when Azure Virtual WAN first went Generally Available. It utilises automation between the networking vendors SD-WAN controller and API's exposed by the Azure Virtual WAN Hub. These APIs offer programmatic automation for attachment of the SD-WAN to Cloud. Example, a new site comes online in Chicago, it is tagged as "cloud enabled" in the SD-WAN vendors software. IPsec tunnels are automatically built from the Branch CPE to Azure Virtual WAN.-
 
 ![](images/2022-03-21-12-04-12.png)
 
