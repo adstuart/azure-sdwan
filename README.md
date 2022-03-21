@@ -23,7 +23,7 @@ We will jump straight in to the technical scenarios/options. For preamble and co
 
 ## Summary of design option
 
-This design pattern has existed since 2018 when Azure Virtual WAN first went Generally Available. It utilises automation between the networking vendors SD-WAN controller and API's exposed by the Azure Virtual WAN Hub. These APIs offer programmatic automation for attachment of the SD-WAN to Cloud. Example, a new site comes online in Chicago, it is tagged as "cloud enabled" in the SD-WAN vendors software. IPsec tunnels are automatically built from the Branch CPE to Azure Virtual WAN.--
+This design pattern has existed since 2018 when Azure Virtual WAN first went Generally Available. It utilises automation between the networking vendors SD-WAN controller and API's exposed by the Azure Virtual WAN Hub. These APIs offer programmatic automation for attachment of the SD-WAN to Cloud. Example, a new site comes online in Chicago, it is tagged as "cloud enabled" in the SD-WAN vendors software. IPsec tunnels are automatically built from the Branch CPE to Azure Virtual WAN.
 
 ![](images/2022-03-21-12-04-12.png)
 
@@ -60,9 +60,7 @@ This design pattern has existed for nearly as long as Azure Virtual Networks hav
 | Azure Networking category  | Virtual Network (customer managed) |
 | Azure/Cloud CPE device  | Vendor NVA |
 | Routing | Static |
-| Notes | Not only will you required static UDR on Spoke Virtual Networks to point SD-WAN bound traffic at your SD-WAN NVA, the SD-WAN appliance itself will have to internally originate static routes that represent your Azure address space. Consider your HA pattern, will you use Azure Load Balancer Active/Active or UDR Rewrite Active/Standby; this will largely be determined by any advanced stateful security features you may be packaging as part of your SD-WAN deployment. |
-
-[^1]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#virtual-wan-limits
+| Notes | Not only will you require static UDR on Spoke Virtual Networks to point SD-WAN bound traffic at your SD-WAN NVA, the SD-WAN appliance itself will have to internally originate static routes that represent your Azure address space. Consider your HA pattern, will you use Azure Load Balancer Active/Active or UDR Rewrite Active/Standby; this will largely be determined by any advanced stateful security features you may be using as part of your SD-WAN deployment. |
 
 ### Links
 
@@ -72,7 +70,7 @@ This design pattern has existed for nearly as long as Azure Virtual Networks hav
 
 ## Summary of design option
 
-This design pattern looked to enhance #2 with a workaround (trick!) related to Azure VPN Gateways. Historically, VPN Gateways were the only endpoint you were able to configured custom BGP peerings to. By establishing IPsec tunnels between the NVA in the Cloud, and the Azure VPN in the Cloud (now possible using [private IPs](https://docs.microsoft.com/en-us/azure/vpn-gateway/media/site-to-site-vpn-private-peering/gateway.png)), we were able to dynamically exchange routes. I.e. the VPN Gateway was purely a bump in the wire, to take BGP information from your NVA, and use it's natively ability to inject routes in to the Azure SDN.
+This design pattern looked to enhance #2 with a workaround (trick!) related to Azure VPN Gateways. Historically, VPN Gateways were the only endpoint to which you could configure custom BGP peerings. By establishing IPsec tunnels between the NVA in the Cloud, and the Azure VPN Gateway in the Cloud (now possible using [private IPs](https://docs.microsoft.com/en-us/azure/vpn-gateway/media/site-to-site-vpn-private-peering/gateway.png)), we are able to dynamically exchange routes. I.e. the VPN Gateway was purely a bump in the wire, to take BGP information from your NVA, and use it's native fabric access to inject routes in to the Azure SDN.
 
 ![](images/2022-03-21-12-19-38.png)
 
@@ -128,7 +126,7 @@ Azure Route Server (ARS) went GA in September 2021. This pattern effectively sup
 | Azure Networking category  | Virtual Network (customer managed)  |
 | Azure/Cloud CPE device  | vendor NVA |
 | Routing | Dynamic |
-| Notes | Pay attention to ARS limits, approach summarization with care, especially in migration scenarios [^3] |
+| Notes | Pay attention to ARS limits, approach summarization with care, especially in migration scenarios [^3]. Check vendor supports eBGP multi-hop. |
 
 [^3]: Whilst a maximum of 1000 routes per NVA BGP peer can be advertised _to_ Azure Route Server, note that if using the branch2branch feature of ARS, this limit effectively drops to 200 **total routes across all BGP peers** https://docs.microsoft.com/en-us/azure/route-server/route-server-faq#route-server-limits
 
@@ -140,7 +138,7 @@ Azure Route Server (ARS) went GA in September 2021. This pattern effectively sup
 
 ## Summary of design option
 
-**The BGP Endpoint feature is still in public prefix as of March 2022**
+> NB. The BGP Endpoint feature is still in public prefix as of March 2022
 
 If you are using Azure Virtual WAN and your favorite networking vendor is not available for pattern #4 then this might be the topology for you. Similar to Azure Route Server, BGP Endpoint for Virtual WAN exposes the ability to directly BGP peer. We are then able to place our NVA in an attached Virtual Network Spoke, and establish BGP Peering sessions with the hub over private IPs (over VNet peering).
 
