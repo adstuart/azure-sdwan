@@ -1,6 +1,18 @@
 Azure Networking patterns for SD-WAN integration
 ==============
 
+- [Introduction](#introduction)
+- [Option 1 - Virtual WAN v1, IPsec API integration](#option-1---virtual-wan-v1-ipsec-api-integration)
+- [Option 2 - Customer managed VNet v1, UDR/Static Routing + NVA](#option-2---customer-managed-vnet-v1-udrstatic-routing--nva)
+- [Option 3 - Customer managed VNet v2, BGP-over-IPsec with VPN Gateway + NVA](#option-3---customer-managed-vnet-v2-bgp-over-ipsec-with-vpn-gateway--nva)
+- [Option 4 - Virtual WAN v2, "NVA in the Hub"](#option-4---virtual-wan-v2-nva-in-the-hub)
+- [Option 5 - Customer managed VNet v3, Azure Route Server + NVA](#option-5---customer-managed-vnet-v3-azure-route-server--nva)
+- [Option 6 - Virtual WAN v3, BGP Endpoint + NVA](#option-6---virtual-wan-v3-bgp-endpoint--nva)
+- [Option 7 - Cloud Edge Colocation, Physical appliance](#option-7---cloud-edge-colocation-physical-appliance)
+- [Conclusion and options flow-chart](#conclusion-and-options-flow-chart)
+
+# Introduction
+
 > This article compliments a two part video series published on YoutTube. Part 1 [here](https://youtu.be/a9Z5FuV7yJE) covers the strategy angle and "asking the right questions", whilst Part 2 [here](https://youtu.be/DRYSkxOjetU) is the video couterpart to this article, focused on the technical integration patterns for SD-WAN integration in to Azure Virtual Networking
 
 We will jump straight in to the technical scenarios/options. For preamble and context, please watch the videos linked above. NB. You can also click the section headers, to take you straight to video content for that particular topic.
