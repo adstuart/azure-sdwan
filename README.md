@@ -138,8 +138,6 @@ Azure Route Server (ARS) went GA in September 2021. This pattern effectively sup
 
 ## Summary of design option
 
-> NB. The BGP Endpoint feature is still in public prefix as of March 2022
-
 If you are using Azure Virtual WAN and your favorite networking vendor is not available for pattern #4 then this might be the topology for you. Similar to Azure Route Server, BGP Endpoint for Virtual WAN exposes the ability to directly BGP peer. We are then able to place our NVA in an attached Virtual Network Spoke, and establish BGP Peering sessions with the hub over private IPs (over VNet peering).
 
 ![](images/2022-03-21-12-13-57.png)
@@ -152,13 +150,13 @@ If you are using Azure Virtual WAN and your favorite networking vendor is not av
 | Azure Networking category  | Azure Virtual WAN  |
 | Azure/Cloud CPE device  | vendor NVA |
 | Routing | Dynamic |
-| Notes | Public preview |
+| Notes | -|
 
 [^1]: https://docs.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#virtual-wan-limits
 
 ### Links
 
-- Microsoft Azure Virtual WAN BGP endpoint preview page - https://docs.microsoft.com/en-us/azure/virtual-wan/create-bgp-peering-hub-portal
+- Microsoft Azure Virtual WAN BGP endpoint doc page - https://docs.microsoft.com/en-us/azure/virtual-wan/create-bgp-peering-hub-portal
 
 # [Option 7 - Cloud Edge Colocation, Physical appliance](https://www.youtube.com/watch?v=DRYSkxOjetU&t=1295s)
 
