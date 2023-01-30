@@ -90,7 +90,7 @@ This design pattern looked to enhance #2 with a workaround (trick!) related to A
 
 ## Summary of design option
 
-This design pattern has existed since mid 2020. In addition to the APIs exposed within Azure Virtual WAN as part of pattern #1, additional, deeper, integrations were opened up for networking partners. In this model, after collaboratively working with Microsoft on the required integration, network vendors are able to place their native virtual appliances directly inside of the Virtual WAN Hub. These appliances then appear as any other Virtual WAN component; that is, entirely managed, with no need to worry about the actual resource, resilience, scaling, feeding and watering etc. In my opinion this offers the deepest levels of Azure integration, it is effectively a PaaS service for SD-WAN endpoint in the Cloud. This integration, also grants the NVA special access to the SDN in order ot dynamically exchange routes as if it were a native service.
+This design pattern has existed since mid 2020. In addition to the APIs exposed within Azure Virtual WAN as part of pattern #1, additional, deeper, integrations were opened up for networking partners. In this model, after collaboratively working with Microsoft on the required integration, network vendors are able to place their native virtual appliances directly inside of the Virtual WAN Hub. These appliances then appear as any other Virtual WAN component; that is, entirely managed, with no need to worry about the actual resource, resilience, scaling, feeding and watering etc. In my opinion this offers the deepest levels of Azure integration, it is effectively a PaaS service for SD-WAN endpoint in the Cloud. This integration, also grants the NVA special access to the SDN in order to dynamically exchange routes as if it were a native service.
 
 ![](images/2022-03-21-12-10-37.png)
 
@@ -133,6 +133,7 @@ Azure Route Server (ARS) went GA in September 2021. This pattern effectively sup
 ### Links
 
 - Microsoft Azure Route Server documentation - https://docs.microsoft.com/en-us/azure/route-server/overview#how-does-it-work
+- Example of vendor pattern utilising this topology, Meraki - [https://documentation.meraki.com/MX/Deployment_Guides/Cisco_Meraki_MX_Branch_to_Azure_Virtual_WAN_Deployment_Guide](https://documentation.meraki.com/MX/Deployment_Guides/vMX_and_Azure_Route_Server)
 
 # [Option 6 - Virtual WAN v3, BGP Endpoint + NVA](https://www.youtube.com/watch?v=DRYSkxOjetU&t=1239s)
 
