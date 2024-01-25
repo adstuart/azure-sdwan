@@ -17,7 +17,9 @@ Azure Networking patterns for SD-WAN integration
 
 We will jump straight in to the technical scenarios/options. For preamble and context, please watch the videos linked above. NB. You can also click the section headers, to take you straight to video content for that particular topic.
 
-> :warning: Check with your networking vendor for approved/reference designs before continuing
+> :warning: Check with your SD-WAM networking vendor for approved/reference designs in conjuction with understanding the high-level patterns in this document.
+
+PS (Jan 2024). Some related guidance for SD-WAN integration on Azure has recently been released within official Azure public docs [here](https://learn.microsoft.com/en-us/azure/architecture/networking/guide/sdwan-integration-in-hub-and-spoke-network-topologies).
 
 # [Option 1 - Virtual WAN v1, IPsec API integration](https://www.youtube.com/watch?v=DRYSkxOjetU&t=661s)
 
@@ -60,7 +62,7 @@ This design pattern has existed for nearly as long as Azure Virtual Networks hav
 | Azure Networking category  | Virtual Network (customer managed) |
 | Azure/Cloud CPE device  | Vendor NVA |
 | Routing | Static |
-| Notes | Not only will you require static UDR on Spoke Virtual Networks to point SD-WAN bound traffic at your SD-WAN NVA, the SD-WAN appliance itself will have to internally originate static routes that represent your Azure address space. Consider your HA pattern, will you use Azure Load Balancer Active/Active or UDR Rewrite Active/Standby; this will largely be determined by any advanced stateful security features you may be using as part of your SD-WAN deployment. |
+| Notes | Not only will you require static UDR on Spoke Virtual Networks to point SD-WAN bound traffic at your SD-WAN NVA, the SD-WAN appliance itself will have to internally originate static routes that represent your Azure address space. Also, consider your HA pattern, will you use Azure Load Balancer Active/Active or UDR Rewrite Active/Standby; this will largely be determined by any advanced stateful security features you may be using as part of your SD-WAN deployment. |
 
 ### Links
 
@@ -70,7 +72,7 @@ This design pattern has existed for nearly as long as Azure Virtual Networks hav
 
 ## Summary of design option
 
-This design pattern looked to enhance #2 with a workaround (trick!) related to Azure VPN Gateways. Historically, VPN Gateways were the only endpoint to which you could configure custom BGP peerings. By establishing IPsec tunnels between the NVA in the Cloud, and the Azure VPN Gateway in the Cloud (now possible using [private IPs](https://docs.microsoft.com/en-us/azure/vpn-gateway/media/site-to-site-vpn-private-peering/gateway.png)), we are able to dynamically exchange routes. I.e. the VPN Gateway was purely a bump in the wire, to take BGP information from your NVA, and use it's native fabric access to inject routes in to the Azure SDN.
+This design pattern looked to enhance #2 with a workaround (trick!) related to Azure VPN Gateways. Historically, VPN Gateways were the only endpoint to which you could configure custom BGP peerings (now we have also have Azure Route Server, more on that in later sections of this document). By establishing IPsec tunnels between the NVA in the Cloud, and the Azure VPN Gateway in the Cloud (now possible using [private IPs](https://docs.microsoft.com/en-us/azure/vpn-gateway/media/site-to-site-vpn-private-peering/gateway.png)), we are able to dynamically exchange routes. I.e. the VPN Gateway was purely a bump in the wire, to take BGP information from your NVA, and use it's native fabric access to inject routes in to the Azure SDN.
 
 ![](images/2022-03-21-12-19-38.png)
 
@@ -90,7 +92,7 @@ This design pattern looked to enhance #2 with a workaround (trick!) related to A
 
 ## Summary of design option
 
-This design pattern has existed since mid 2020. In addition to the APIs exposed within Azure Virtual WAN as part of pattern #1, additional, deeper, integrations were opened up for networking partners. In this model, after collaboratively working with Microsoft on the required integration, network vendors are able to place their native virtual appliances directly inside of the Virtual WAN Hub. These appliances then appear as any other Virtual WAN component; that is, entirely managed, with no need to worry about the actual resource, resilience, scaling, feeding and watering etc. In my opinion this offers the deepest levels of Azure integration, it is effectively a PaaS service for SD-WAN endpoint in the Cloud. This integration, also grants the NVA special access to the SDN in order to dynamically exchange routes as if it were a native service.
+This design pattern has existed since mid 2020. In addition to the APIs exposed within Azure Virtual WAN as part of pattern #1, additional, deeper, integrations were opened up for networking partners. In this model, after collaboratively working with Microsoft on the required integration, network vendors are able to place their native virtual appliances directly inside of the Virtual WAN Hub. These appliances then appear as any other Virtual WAN component; that is, entirely managed, with no need to worry about the actual resource, resilience, scaling, feeding and watering etc. This pattern therefore offers the deepest levels of Azure integration, it is effectively a PaaS service for SD-WAN endpoint in the Cloud. This integration, effectively also grants the NVA special access to the SDN in order to dynamically exchange routes as if it were a native service.
 
 ![](images/2022-03-21-12-10-37.png)
 
