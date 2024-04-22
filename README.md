@@ -13,11 +13,11 @@ Azure Networking patterns for SD-WAN integration
 
 # Introduction
 
-> This article compliments a two part video series published on YoutTube. Part 1 [here](https://youtu.be/a9Z5FuV7yJE) covers the strategy angle and "asking the right questions", whilst Part 2 [here](https://youtu.be/DRYSkxOjetU) is the video couterpart to this article, focused on the technical integration patterns for SD-WAN integration in to Azure Virtual Networking
+> This article compliments a two part video series published on YoutTube. Part 1 [here](https://youtu.be/a9Z5FuV7yJE) covers the strategy angle and "asking the right questions", whilst Part 2 [here](https://youtu.be/DRYSkxOjetU) is the video counterpart to this article, focused on the technical integration patterns for SD-WAN integration in to Azure Virtual Networks.
 
 We will jump straight in to the technical scenarios/options. For preamble and context, please watch the videos linked above. NB. You can also click the section headers, to take you straight to video content for that particular topic.
 
-> :warning: Check with your SD-WAM networking vendor for approved/reference designs in conjuction with understanding the high-level patterns in this document.
+> :warning: Check with your SD-WAN networking vendor for approved/reference designs in conjuction with understanding the high-level patterns in this document.
 
 PS (Jan 2024). Some related guidance for SD-WAN integration on Azure has recently been released within official Azure public docs [here](https://learn.microsoft.com/en-us/azure/architecture/networking/guide/sdwan-integration-in-hub-and-spoke-network-topologies).
 
